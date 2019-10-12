@@ -34,15 +34,18 @@ public class FileRequest {
         {
             chunkCounts[i] = owners[0][i] + owners[1][i] + owners[2][i];
         }
+
         for (int chunk = 0; chunk < 4; chunk++)
         {
-            int rarestChunk = min(chunkCounts);
+            int rarestChunk = indexOfMin(chunkCounts);
             System.out.print(rarestChunk + 1);
+            chunkCounts[rarestChunk] += 4;
             for (int owner = 0; owner < 3; owner++)
             {
                 if (owners[owner][rarestChunk] == 1)
                 {
                     System.out.print(getPeerName(owner));
+                    break;
                 }
             }
         }
@@ -58,14 +61,14 @@ public class FileRequest {
         return b >= '0' && b <= '9';
     }
 
-    static int min(int[] a)
+    static int indexOfMin(int[] a)
     {
-        int min = a[0];
+        int minIndex = 0;
         for (int i = 1; i < a.length; i++)
         {
-            if (a[i] < min) min = a[i];
+            if (a[i] < a[minIndex]) minIndex = i;
         }
-        return min;
+        return minIndex;
     }
 
     static char getPeerName(int peerNum)
